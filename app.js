@@ -24,3 +24,6 @@ function createPlayer (name, marker) {
         marker,
     };
 };
+
+const playerOne = createPlayer("Player One", "X");
+const playerTwo = createPlayer("Player Two", "O");
