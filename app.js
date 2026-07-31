@@ -48,6 +48,24 @@ const GameController = (() => {
 
     const getActivePlayer = () => activePlayer;
 
+    // check if active player has won
+    const isWinner = () => {
+        const board = Gameboard.getBoard();
+
+        return winningLines.some((line) => {
+               return line.every((index) => {
+                return board[index] === activePlayer.marker;
+            });
+        });
+    };
+
+    // check if draw
+    const isDraw = () => {
+        const board = Gameboard.getBoard();
+
+        return board.every(position => position !== "");
+    };
+
     // turn switching
     const switchPlayerTurn = () => {
         activePlayer = activePlayer === playerOne ? playerTwo : playerOne;
@@ -60,18 +78,19 @@ const GameController = (() => {
         const moveIsSuccess = Gameboard.placeMarker(index, activePlayer.marker);
 
         if (!moveIsSuccess) return;
-
-        // check if active player has won
-        const isWinner = () => {
-            const board = Gameboard.getBoard();
-
-            return winningLines.some((line) => {
-                return line.every((index) => {
-                    return board[index] === activePlayer.marker;
-                });
-            });
+        // round win check
+        if (isWinner()) {
+            gameOver = true;
+            console.log(`Game over! ${activePlayer} wins!`);
+            return;
         };
-
+        if (isDraw()) {
+            gameOver = true;
+            console.log("Game over! It is a draw.");
+            return;
+        };
+        
+        // lastly switch players
         switchPlayerTurn();
     };
 
