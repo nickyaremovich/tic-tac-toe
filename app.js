@@ -99,3 +99,29 @@ const GameController = (() => {
         getActivePlayer,
     };
 })();
+
+
+const DisplayController = (() => {
+    const boardElement = document.getElementById('board'); 
+
+    const renderBoard = () => {
+        let board = Gameboard.getBoard();
+
+        boardElement.textContent = "";
+
+        board.forEach((value, index) => {
+            
+            const cells = document.createElement('button');
+            cells.classList.add('cell');
+
+            cells.textContent = value;
+
+            cells.dataset.index = index;
+
+            boardElement.append(cells);
+             
+        });
+    };
+
+
+})();
