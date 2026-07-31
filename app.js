@@ -63,8 +63,14 @@ const GameController = (() => {
 
         // check if active player has won
         const isWinner = () => {
+            const board = Gameboard.getBoard();
 
-        }
+            return winningLines.some((line) => {
+                return line.every((index) => {
+                    return board[index] === activePlayer.marker;
+                });
+            });
+        };
 
         switchPlayerTurn();
     };
